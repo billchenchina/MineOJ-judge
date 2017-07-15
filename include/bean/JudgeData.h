@@ -24,7 +24,6 @@ public:
     unsigned long long problem_id;
     unsigned long long memory_limit;
     unsigned long long time_limit;
-    // @TODO JudgeType.h
     JudgeType judge_type;
     std::string submit_code;
 
