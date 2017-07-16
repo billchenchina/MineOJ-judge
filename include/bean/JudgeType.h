@@ -26,7 +26,7 @@ enum JudgeType{
     /*
      * Specail Judge - 特殊评测
      */
-    SPJ=1
+    SPJ=1,
 
 
 };
