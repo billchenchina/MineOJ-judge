@@ -10,8 +10,9 @@
 
 #include <string>
 #include <vector>
-#include <bean/JudgeStatus.h>
 
+#include <bean/JudgeStatus.h>
+#include <bean/JudgePoint.h>
 namespace MineOJ{
 class JudgeResult{
 public:
