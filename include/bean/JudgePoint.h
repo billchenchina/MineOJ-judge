@@ -8,7 +8,19 @@
 #ifndef BEAN_JUDGEPOINT_H_
 #define BEAN_JUDGEPOINT_H_
 
-// @TODO JudgePoint.h
+#include <string>
+
+#include <bean/JudgeStatus.h>
+
+namespace MineOJ{
+class JudgePoint{
+    long long use_time;
+    long long use_memory;
+    int score;
+    JudgeStatus judge_status;
+    std::string info;
+};
+}
 
 
 

@@ -16,7 +16,7 @@ namespace MineOJ{
  * @author  billchenchina
  * @date    2017年7月15日
 */
-enum JusgeStatus{
+enum JudgeStatus{
     /*
      * Accepted - 成功通过评测
      */

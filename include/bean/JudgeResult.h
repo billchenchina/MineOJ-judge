@@ -8,7 +8,21 @@
 #ifndef BEAN_JUDGERESULT_H_
 #define BEAN_JUDGERESULT_H_
 
-// @TODO JudgeResult.h
+#include <string>
+#include <vector>
+#include <bean/JudgeStatus.h>
+
+namespace MineOJ{
+class JudgeResult{
+public:
+    long long judge_id;
+    long long problem_id;
+    int score;
+    JudgeStatus judge_status;
+    std::string info;
+    std::vector<JudgePoint> points;
+};
+}
 
 
 
