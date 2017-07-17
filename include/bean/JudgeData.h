@@ -39,9 +39,7 @@ public:
 
     }
     Json::Value toJson(){
-        Json::Value data_json;
-        insertJson(data_json);
-        return data_json;
+        return castToJson();
     }
     std::string toString(){
         Json::FastWriter writer;
@@ -49,8 +47,8 @@ public:
         return writer.write(testJson);
     }
 private:
-    void insertJson(Json::Value &data_json){
-
+    Json::Value castToJson(){
+        Json::Value data_json;
         data_json["judgeID"]        = static_cast<double>(judge_id);
         data_json["problemID"]      = static_cast<double>(problem_id);
         data_json["memoryLimit"]    = static_cast<double>(memory_limit);
@@ -61,7 +59,7 @@ private:
         // TODO http://www.cnblogs.com/yxwkf/p/4020591.html
         // 由于JsonCpp不支持long long，故此处是否应改为double暂需讨论
         // 暂时已更改为double
-        return;
+        return data_json;
     }
 };
 }

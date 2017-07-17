@@ -45,6 +45,11 @@ public:
     Json::Value toJson(){
         return castToJson();
     }
+    std::string toString(){
+        Json::FastWriter writer;
+        Json::Value testJson=toJson();
+        return writer.write(testJson);
+    }
 private:
     Json::Value castToJson(){
         Json::Value data_json;
