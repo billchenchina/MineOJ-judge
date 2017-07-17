@@ -5,9 +5,11 @@
  *      Author: igronemyk
  */
 
+#include <string>
+
 #include <gtest/gtest.h>
 #include <jsoncpp/json.h>
-#include <string>
+
 
 TEST(JsonCppTest, JsonToString){
     Json::FastWriter writer;

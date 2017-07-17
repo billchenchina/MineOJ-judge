@@ -20,27 +20,46 @@
 namespace MineOJ{
 class JudgeResult{
 public:
-    long long judge_id;
-    long long problem_id;
+    unsigned long long judge_id;
+    unsigned long long problem_id;
     int score;
     JudgeType judge_type;
     JudgeStatus judge_status;
     std::string info;
     std::vector<JudgePoint> points;
+    void parseJson(Json::Value data_json){
+        judge_id=static_cast<long long>(data_json["judgeID"].asDouble());
+        problem_id=static_cast<long long>(data_json["problemID"].asDouble());
+        score=data_json["score"].asInt();
+        judge_type=static_cast<JudgeType>(data_json["judgeType"].asInt());
+        judge_status=static_cast<JudgeStatus>(data_json["judgeStatus"].asInt());
+        info=data_json["info"].asString();
+        Json::Value arrayJson=data_json["points"];
+        int arr_size=arrayJson.size();
+        for(auto i=0;i<arr_size;i++){
+            JudgePoint judge_point;
+            judge_point.parseJson(arrayJson[i]);
+            points.push_back(judge_point);
+        }
+    }
+    Json::Value toJson(){
+        return castToJson();
+    }
 private:
-    Json::Value insertJson(Json::Value data_json){
-        data_json["JudgeID"]=judge_id;
-        data_json["ProblemID"]=problem_id;
-        data_json["Score"]=score;
-        data_json["JudgeType"]=judge_type;
-        data_json["Info"]=info;
+    Json::Value castToJson(){
+        Json::Value data_json;
+        data_json["judgeID"]=static_cast<double>(judge_id);
+        data_json["problemID"]=static_cast<double>(problem_id);
+        data_json["score"]=score;
+        data_json["judgeType"]=judge_type;
+        data_json["info"]=info;
         // TODO 读入数组值可参考 https://sourceforge.net/p/jsoncpp/discussion/483465/thread/24cb7c88/
         // TO BE EDITED
-        /*
+        Json::Value& data_node = data_json["points"];
         for(auto point:points){
-            point.insertJson(data_json["Points"]);
+            data_node.append(point.toJson());
         }
-        */
+
         return data_json;
     }
 };

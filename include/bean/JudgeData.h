@@ -23,19 +23,19 @@ namespace MineOJ{
  */
 class JudgeData{
 public:
-    double judge_id;
-    double problem_id;
-    double memory_limit;
-    double time_limit;
+    unsigned long long judge_id;
+    unsigned long long problem_id;
+    unsigned long long memory_limit;
+    unsigned long long time_limit;
     JudgeType judge_type;
     std::string submit_code;
     void parseJson(const Json::Value data_json){
-        judge_id        = data_json["JudgeID"].asLargestInt();
-        problem_id      = data_json["ProblemID"].asLargestInt();
-        memory_limit    = data_json["MemoryLimit"].asLargestInt();
-        time_limit      = data_json["TimeLimit"].asLargestInt();
-        //judge_type      = data_json["JudgeType"].asInt();
-        submit_code     = data_json["SubmitCode"].asString();
+        judge_id        = data_json["judgeID"].asLargestInt();
+        problem_id      = data_json["problemID"].asLargestInt();
+        memory_limit    = data_json["memoryLimit"].asLargestInt();
+        time_limit      = data_json["timeLimit"].asLargestInt();
+        judge_type      = static_cast<JudgeType>(data_json["judgeType"].asInt());
+        submit_code     = data_json["submitCode"].asString();
 
     }
     Json::Value toJson(){
@@ -51,12 +51,12 @@ public:
 private:
     void insertJson(Json::Value &data_json){
 
-        data_json["JudgeID"]        = judge_id;
-        data_json["JudgeType"]      = judge_type;
-        data_json["MemoryLimit"]    = memory_limit;
-        data_json["TimeLimit"]      = time_limit;
-        data_json["ProblemID"]      = problem_id;
-        data_json["SubmitCode"]     = submit_code;
+        data_json["judgeID"]        = static_cast<double>(judge_id);
+        data_json["problemID"]      = static_cast<double>(problem_id);
+        data_json["memoryLimit"]    = static_cast<double>(memory_limit);
+        data_json["timeLimit"]      = static_cast<double>(time_limit);
+        data_json["judgeType"]      = judge_type;
+        data_json["submitCode"]     = submit_code;
 
         // TODO http://www.cnblogs.com/yxwkf/p/4020591.html
         // 由于JsonCpp不支持long long，故此处是否应改为double暂需讨论
