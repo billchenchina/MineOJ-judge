@@ -1,18 +1,26 @@
-/*
- * test_JudgeResult.cpp
- *
- *  Created on: 2017年7月17日
- *      Author: billchenchina
- */
-
+#include <cstdint>
 
 #include <string>
+#include <vector>
 
 #include <gtest/gtest.h>
 #include <jsoncpp/json.h>
 
-#include <bean/JudgeResult.h>
+#include "bean/JudgePoint.h"
+#include "bean/JudgeResult.h"
 
+TEST(test_JudgeResult, ConstructorByElements)
+{
+	std::int32_t judge_id = 1;
+	std::int32_t problem_id = 1;
+	std::uint32_t score = 100;
+	MineOJ::JudgeType judge_type = MineOJ::JudgeType::NormalJudge;
+	MineOJ::JudgeStatus judge_status = MineOJ::JudgeStatus::Accept;
+	std::string info;
+	std::vector<MineOJ::JudgePoint> points{ MineOJ::JudgePoint() };
+}
+
+/*
 TEST(JudgeResultTest, StringToJudgeResult){
     std::string str = R"({"judgeID":1,"problemID":1,"score":100,"judgeType":0,"judgeStatus":1,"info":"JudgeResultInfo","points":[{"useTime":100,"useMemory":100,"score":100,"judgeStatus":0,"info":"info1"},{"useTime":20,"useMemory":20,"score":0,"judgeStatus":1,"info":"info2"}]})";
     Json::Value in_value;
@@ -26,5 +34,5 @@ TEST(JudgeResultTest, StringToJudgeResult){
     std::string outstr=writer.write(to_value);
     EXPECT_EQ(str,outstr);
 }
-
+*/
 
