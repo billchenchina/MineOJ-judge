@@ -11,6 +11,7 @@
 #include "bean/JudgeStatus.h"
 #include "bean/JudgePoint.h"
 #include "bean/JudgeType.h"
+#include "bean/JudgeData.h"
 
 namespace MineOJ
 {
