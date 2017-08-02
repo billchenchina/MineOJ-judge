@@ -1,4 +1,5 @@
 #include "JudgeResult.h"
+#include "JudgeData.h"
 
 #include <cstdint>
 
@@ -30,6 +31,18 @@ MineOJ::JudgeResult::JudgeResult(const Json::Value &json)
 	{
 		points.push_back(JudgePoint(point));
 	}
+}
+
+MineOJ::JudgeResult::JudgeResult(const MineOJ::JudgeData judge_data)
+    : judge_id(judge_data.judge_id ),
+      problem_id(judge_data.problem_id),
+      score(),
+      judge_type(judge_data.judge_type),
+      judge_status(),
+      info(),
+      points()
+{
+
 }
 
 Json::Value MineOJ::JudgeResult::to_json() const

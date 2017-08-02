@@ -28,7 +28,7 @@ namespace MineOJ
 		JudgeResult() = default;
 		JudgeResult(std::int32_t judge_id, std::int32_t problem_id, std::uint32_t score, JudgeType judge_type, JudgeStatus judge_status, const std::string &info, const std::vector<JudgePoint> &points);
 		JudgeResult(const Json::Value &json);
-
+		JudgeResult(const JudgeData judge_data);
 		Json::Value to_json() const;
 		std::string to_string() const;
 	};
