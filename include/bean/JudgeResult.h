@@ -74,8 +74,6 @@ namespace MineOJ
 			data_json["score"]=score;
 			data_json["judgeType"]=judge_type;
 			data_json["info"]=info;
-			// TODO 读入数组值可参考 https://sourceforge.net/p/jsoncpp/discussion/483465/thread/24cb7c88/
-			// TO BE EDITED
 			Json::Value& data_node = data_json["points"];
 			for(auto point:points){
 				data_node.append(point.toJson());

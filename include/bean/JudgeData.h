@@ -2,7 +2,6 @@
 #define BEAN_JUDGEDATA_H_
 
 #include <cstdint>
-
 #include <string>
 
 #include <jsoncpp/json.h>
@@ -21,7 +20,8 @@ namespace MineOJ
         std::uint64_t time_limit;
         JudgeType judge_type;
         std::string submit_code;
-
+        std::vector<JudgePoint>judge_points;
+        std::string compile_info;
         JudgeData() = default;
         JudgeData(std::int32_t judge_id, std::int32_t problem_id, std::uint64_t memory_limit, std::uint64_t time_limit, JudgeType judge_type, const std::string &submit_code);
         JudgeData(const Json::Value &json);
@@ -66,10 +66,6 @@ namespace MineOJ
             data_json["timeLimit"]      = static_cast<double>(time_limit);
             data_json["judgeType"]      = judge_type;
             data_json["submitCode"]     = submit_code;
-
-            // TODO http://www.cnblogs.com/yxwkf/p/4020591.html
-            // 由于JsonCpp不支持long long，故此处是否应改为double暂需讨论
-            // 暂时已更改为double
             return data_json;
         }
     };
