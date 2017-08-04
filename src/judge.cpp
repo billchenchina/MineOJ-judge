@@ -35,7 +35,3 @@ MineOJ::JudgeResult judge_cpp(MineOJ::JudgeData judge_data){
     return judge_result;
 }
 
-
-namespace MineOJ{
-
-}
