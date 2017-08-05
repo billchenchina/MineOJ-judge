@@ -30,7 +30,6 @@ TEST(RabbitMQTest,writeToServer){
     channel.declareQueue(queue_name);
     channel.declareExchange(AMQP::direct);
     channel.bindQueue(exchange_name,queue_name,routing_key);
-
 }
 
 
