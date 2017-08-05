@@ -11,9 +11,11 @@
 
 #include <gtest/gtest.h>
 
-TEST(RabbitMQTest,ConnectToServer){
-    std::string amqp_address=R"()";
-
+TEST(RabbitMQTest,writeToServer){
+    const std::string amqp_address=R"()";
+    const std::string queue_name=R"(MineOJ-Judger)";
+    const std::string exchange_name=R"()";
+    const std::string routing_key=R"()";
     // create an instance of your own tcp handler
     MineOJ::TcpHandler myHandler;
 
@@ -22,14 +24,12 @@ TEST(RabbitMQTest,ConnectToServer){
 
     // create a AMQP connection object
     AMQP::TcpConnection connection(&myHandler, address);
-
     // and create a channel
     AMQP::TcpChannel channel(&connection);
-
     // use the channel object to call the AMQP method you like
-    channel.declareExchange("my-exchange", AMQP::fanout);
-    channel.declareQueue("my-queue");
-    channel.bindQueue("my-exchange", "my-queue", "my-routing-key");
+    channel.declareQueue(queue_name);
+    channel.declareExchange(AMQP::direct);
+    channel.bindQueue(exchange_name,queue_name,routing_key);
 
 }
 
