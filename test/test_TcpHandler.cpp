@@ -18,7 +18,7 @@ TEST(RabbitMQTest,ConnectToServer){
     MineOJ::TcpHandler myHandler;
 
     // address of the server
-    AMQP::Address address(amqp_address.c_str());
+    AMQP::Address address(amqp_address);
 
     // create a AMQP connection object
     AMQP::TcpConnection connection(&myHandler, address);
