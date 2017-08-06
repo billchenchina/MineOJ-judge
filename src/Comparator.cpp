@@ -1,29 +1,29 @@
 /*
- * Comparer.cpp
+ * Comparator.cpp
  *
  *  Created on: 2017年8月3日
  *      Author: billchenchina
  */
 
-#include <bean/Comparer.h>
+#include "Comparator.h"
 
 namespace MineOJ {
 
-Comparer::Comparer(std::string ansFile,std::string outputFile) {
+Comparator::Comparator(std::string ansFile,std::string outputFile) {
     // TODO Auto-generated constructor stub
 
 }
 
 
 
-Comparer::~Comparer() {
+Comparator::~Comparator() {
     // TODO Auto-generated destructor stub
 }
 
-void Comparer::compare(){
+void Comparator::compare(){
 
 }
-bool Comparer::getCompareResult(){
+bool Comparator::getComparatoresult(){
 
 }
 } /* namespace MineOJ */
