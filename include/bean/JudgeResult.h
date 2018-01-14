@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include <jsoncpp/json.h>
+#include <json/json.h>
 
 #include "bean/JudgeStatus.h"
 #include "bean/JudgePoint.h"

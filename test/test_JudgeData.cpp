@@ -9,7 +9,7 @@
 #include <string>
 
 #include <gtest/gtest.h>
-#include <jsoncpp/json.h>
+#include <json/json.h>
 
 #include "bean/JudgeData.h"
 

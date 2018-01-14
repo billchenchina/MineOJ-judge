@@ -4,7 +4,7 @@
 
 #include <string>
 
-#include <jsoncpp/json.h>
+#include <json/json.h>
 
 MineOJ::JudgePoint::JudgePoint(std::uint64_t time, std::uint64_t memory, std::uint32_t score, JudgeStatus judge_status, const std::string &info)
     : time(time),

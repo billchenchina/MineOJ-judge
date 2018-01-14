@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <string>
 
-#include <jsoncpp/json.h>
+#include <json/json.h>
 
 #include "bean/JudgeType.h"
 #include "bean/JudgePoint.h"

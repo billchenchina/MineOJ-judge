@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include <jsoncpp/json.h>
+#include <json/json.h>
 
 MineOJ::JudgeResult::JudgeResult(std::int32_t judge_id, std::int32_t problem_id, std::uint32_t score, JudgeType judge_type, JudgeStatus judge_status, const std::string &info, const std::vector<JudgePoint> &points)
 	: judge_id(judge_id),

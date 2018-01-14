@@ -4,7 +4,7 @@
 #include <vector>
 
 #include <gtest/gtest.h>
-#include <jsoncpp/json.h>
+#include <json/json.h>
 
 #include "bean/JudgePoint.h"
 #include "bean/JudgeResult.h"
