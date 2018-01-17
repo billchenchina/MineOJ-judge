@@ -7,6 +7,7 @@
 
 #include <cstdio>
 #include <gtest/gtest.h>
+#include <MessageSender.h>
 
 GTEST_API_ int main(int argc, char **argv) {
     printf("Running main() from gtest_main.cc\n");
