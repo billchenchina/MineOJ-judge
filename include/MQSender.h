@@ -5,8 +5,8 @@
  *      Author: billchenchina
  */
 
-#ifndef MQSENDER_H_
-#define MQSENDER_H_
+#ifndef INCLUDE_MQSENDER_H_
+#define INCLUDE_MQSENDER_H_
 
 #include <string>
 
@@ -19,23 +19,23 @@ namespace MineOJ {
 class MQSender {
 public:
     MQSender();
-    MQSender(std::string url,std::string message);
+    MQSender(std::string url, std::string message);
     virtual ~MQSender();
     void exec();
 private:
     /**
      *  Custom handler
      */
-    class MyHandler : public AMQP::LibEvHandler
-    {
+    class MyHandler: public AMQP::LibEvHandler {
     private:
         /**
          *  Method that is called when a connection error occurs
          *  @param  connection
          *  @param  message
          */
-        virtual void onError(AMQP::TcpConnection *connection, const char *message) override
-        {
+        virtual void onError(AMQP::TcpConnection *connection,
+                const char *message) override
+                {
             std::cout << "error: " << message << std::endl;
         }
 
@@ -53,12 +53,15 @@ private:
          *  Constructor
          *  @param  ev_loop
          */
-        MyHandler(struct ev_loop *loop) : AMQP::LibEvHandler(loop) {}
+        MyHandler(struct ev_loop *loop) :
+                AMQP::LibEvHandler(loop) {
+        }
 
         /**
          *  Destructor
          */
-        virtual ~MyHandler() {}
+        virtual ~MyHandler() {
+        }
     };
     std::string _url;
     std::string _message;
@@ -67,4 +70,5 @@ private:
 
 } /* namespace MineOJ */
 
-#endif /* MQSENDER_H_ */
+#endif /* INCLUDE_MQSENDER_H_ */
+

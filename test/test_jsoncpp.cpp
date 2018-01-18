@@ -10,21 +10,22 @@
 #include <gtest/gtest.h>
 #include <json/json.h>
 
-
-TEST(JsonCppTest, JsonToString){
+TEST(JsonCppTest, JsonToString) {
     Json::FastWriter writer;
     Json::Value testJson;
-    testJson["name"]="XiaoMing";
-    testJson["id"]=1;
-    testJson["finalGrade"]=100;
-    testJson["Rank"]=1;
-    testJson["isNO.1"]=true;
+    testJson["name"] = "XiaoMing";
+    testJson["id"] = 1;
+    testJson["finalGrade"] = 100;
+    testJson["Rank"] = 1;
+    testJson["isNO.1"] = true;
     std::string result = writer.write(testJson);
-    EXPECT_EQ(result,"{\"Rank\":1,\"finalGrade\":100,\"id\":1,\"isNO.1\":true,\"name\":\"XiaoMing\"}\n");
+    EXPECT_EQ(result,
+            "{\"Rank\":1,\"finalGrade\":100,\"id\":1,\"isNO.1\":true,\"name\":\"XiaoMing\"}\n");
 }
 
-TEST(JsonCppTest, StringToJson){
-    std::string str = R"({"Rank":1,"finalGrade":100,"id":1,"isNO.1":true,"name":"XiaoMing"})";
+TEST(JsonCppTest, StringToJson) {
+    std::string str =
+            R"({"Rank":1,"finalGrade":100,"id":1,"isNO.1":true,"name":"XiaoMing"})";
     Json::Reader reader;
     Json::Value testJson;
     EXPECT_EQ(reader.parse(str, testJson, false), true);
