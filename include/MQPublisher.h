@@ -1,26 +1,26 @@
 /*
- * MQSender.h
+ * MQPublisher.h
  *
  *  Created on: 2018年1月18日
  *      Author: billchenchina
  */
 
-#ifndef INCLUDE_MQSENDER_H_
-#define INCLUDE_MQSENDER_H_
+#ifndef INCLUDE_MQPUBLISHER_H_
+#define INCLUDE_MQPUBLISHER_H_
 
 #include <string>
-
 #include <amqpcpp.h>
 #include <amqpcpp/libev.h>
 #include <ev.h>
-
+#include "RabbitmqConfig.h"
 namespace MineOJ {
 
-class MQSender {
+class MQPublisher {
 public:
-    MQSender();
-    MQSender(std::string url, std::string message);
-    virtual ~MQSender();
+    MQPublisher();
+    MQPublisher(const std::string &, const std::string &);
+    MQPublisher(const RabbitmqConfig &,const std::string &);
+    virtual ~MQPublisher();
     void exec();
 private:
     /**
@@ -63,12 +63,13 @@ private:
         virtual ~MyHandler() {
         }
     };
-    std::string _url;
+
+    AMQP::Address _address;
     std::string _message;
     MyHandler* _handler;
 };
 
 } /* namespace MineOJ */
 
-#endif /* INCLUDE_MQSENDER_H_ */
+#endif /* INCLUDE_MQPUBLISHER_H_ */
 

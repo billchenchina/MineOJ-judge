@@ -1,4 +1,4 @@
-#include "JudgeData.h"
+#include "bean/JudgeData.h"
 
 #include <cstdint>
 

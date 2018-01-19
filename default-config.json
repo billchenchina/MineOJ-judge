@@ -1,0 +1,13 @@
+{
+    "rabbitmq" : 
+    {
+        "ip" : "127.0.0.1",
+        "port" : 5672,
+        "username" : "guest",
+        "password" : "guest",
+        "vhost" : "/",
+        "exchange_name" : "exchange",
+        "queue_name" : "queue",
+    }
+}
+

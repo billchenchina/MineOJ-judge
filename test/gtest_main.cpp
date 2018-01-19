@@ -7,7 +7,7 @@
 
 #include <cstdio>
 #include <gtest/gtest.h>
-#include <MQSender.h>
+#include <MQPublisher.h>
 
 GTEST_API_ int main(int argc, char **argv) {
     printf("Running main() from gtest_main.cc\n");

@@ -13,6 +13,15 @@
 #include "bean/JudgeData.h"
 
 TEST(test_JudgeData, ConstructorByElements) {
+    Json::Value json;
+    json["rabbitmq"]["username"] = "guest";
+    json["rabbitmq"]["password"] = "guest";
+    json["rabbitmq"]["ip"] = "127.0.0.1";
+    json["rabbitmq"]["port"] = 5672;
+    json["rabbitmq"]["vhost"] = "/";
+    json["rabbitmq"]["exchange_name"] = "exchange";
+    json["rabbitmq"]["queue_name"] = "queue";
+
     std::int32_t judge_id = 1;
     std::int32_t problem_id = 1;
     std::uint64_t memory_limit = 128 * 1024 * 1024;
