@@ -6,7 +6,6 @@
 #include <gtest/gtest.h>
 #include <json/json.h>
 
-#include "bean/JudgePoint.h"
 #include "bean/JudgeResult.h"
 
 TEST(test_JudgeResult, ConstructorByElements) {
@@ -16,6 +15,8 @@ TEST(test_JudgeResult, ConstructorByElements) {
     MineOJ::JudgeType judge_type = MineOJ::JudgeType::NormalJudge;
     MineOJ::JudgeStatus judge_status = MineOJ::JudgeStatus::Accept;
     std::string info;
-    std::vector<MineOJ::JudgePoint> points { MineOJ::JudgePoint() };
+    std::vector<MineOJ::JudgePoint> points { MineOJ::JudgePoint(), MineOJ::JudgePoint() };
+    MineOJ::JudgeResult result(judge_id, problem_id, score, judge_type, judge_status, info, points);
+
 }
 

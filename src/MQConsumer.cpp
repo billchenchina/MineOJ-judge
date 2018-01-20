@@ -9,9 +9,9 @@
 
 namespace MineOJ {
 
-MQConsumer::MQConsumer() :_address("amqp://guest:guest@localhost/") {}
+MQConsumer::MQConsumer() :_address("amqp://guest:guest@localhost/"),_handler(NULL) {}
 
-MQConsumer::MQConsumer(const std::string &url) :_address(url) {}
+MQConsumer::MQConsumer(const std::string &url) :_address(url),_handler(NULL) {}
 
 MQConsumer::MQConsumer(const RabbitmqConfig &config) :_handler(NULL),_address(AMQP::Address(config.ip, config.port, AMQP::Login(config.username,config.password), config.vhost)) {}
 
