@@ -26,7 +26,7 @@ public:
             const std::uint64_t &memory_limit, const std::uint64_t &time_limit,
             const JudgeType &judge_type, const std::string &submit_code);
     JudgeData(const Json::Value &json);
-
+    void parse_from_json(const Json::Value &json);
     Json::Value to_json() const;
     std::string to_string() const;
 

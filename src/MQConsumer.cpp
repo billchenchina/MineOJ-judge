@@ -23,12 +23,10 @@ std::string MQConsumer::exec() {
     AMQP::TcpConnection connection(_handler, _address);
     AMQP::TcpChannel channel(&connection);
     std::string s;
-    // @TODO SOLVE THE CONSUME PROBLEM!!!
-    channel.consume("queue1",2).onReceived([&channel,&s](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered){
-        s=std::string(message.body(), message.bodySize());
+    channel.consume("queue1",AMQP::noack).onMessage([&connection,&s](const AMQP::Message &message, uint64_t deliveryTag, bool redelivered){
+        s=std::string(message.body());
+        connection.close();
     });
-    channel.close();
-    connection.close();
     ev_run(loop);
     return s;
 }

@@ -13,15 +13,22 @@ MineOJ::JudgeData::JudgeData(const std::int32_t &judge_id, const std::int32_t &p
                 time_limit), judge_type(judge_type), submit_code(submit_code) {
 }
 
-MineOJ::JudgeData::JudgeData(const Json::Value &json) :
-        judge_id(json["judgeId"].asInt()), problem_id(
-                json["problemId"].asInt()),data_version(json["dataVersion"].asString()), memory_limit(
-                json["memoryLimit"].asUInt64()), time_limit(
-                json["timeLimit"].asUInt64()), judge_type(
-                static_cast<JudgeType>(json["judgeType"].asUInt())), submit_code(
-                json["submitCode"].asString()) {
+MineOJ::JudgeData::JudgeData(const Json::Value &json) {
+    parse_from_json(json);
 }
+void MineOJ::JudgeData::parse_from_json(const Json::Value &json) {
+    judge_id = json["judgeId"].asInt();
+    problem_id = json["problemId"].asInt();
+    data_version = json["dataVersion"].asString();
 
+    memory_limit = json["memoryLimit"].asUInt64();
+
+    time_limit = json["timeLimit"].asUInt64();
+
+    judge_type = static_cast<JudgeType>(json["judgeType"].asUInt());
+
+    submit_code = json["submitCode"].asString();
+}
 Json::Value MineOJ::JudgeData::to_json() const {
     Json::Value json;
     json["judgeId"] = judge_id;
