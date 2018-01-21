@@ -7,14 +7,8 @@
 
 #include <RabbitmqConfig.h>
 
-RabbitmqConfig::RabbitmqConfig() {
-    // TODO Auto-generated constructor stub
 
-}
-
-RabbitmqConfig::~RabbitmqConfig() {
-    // TODO Auto-generated destructor stub
-}
+RabbitmqConfig::~RabbitmqConfig() {}
 
 RabbitmqConfig::RabbitmqConfig(const Json::Value &value) {
     ip = value["ip"].asString();
@@ -24,4 +18,5 @@ RabbitmqConfig::RabbitmqConfig(const Json::Value &value) {
     vhost = value["vhost"].asString();
     exchange_name = value["exchange_name"].asString();
     queue_name = value["queue_name"].asString();
+    signal_queue_name = value["signal_queue_name"].asString();
 }

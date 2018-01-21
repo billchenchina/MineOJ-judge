@@ -22,8 +22,8 @@ public:
     MQConsumer(const std::string &);
     MQConsumer(const RabbitmqConfig &);
     virtual ~MQConsumer();
-    std::string exec();
-private:
+    AMQP::Address address;
+public:
     /**
      *  Custom handler
      */
@@ -65,12 +65,9 @@ private:
         }
     };
 
-    AMQP::Address _address;
 
-    MyHandler *_handler;
 };
 
 } /* namespace MineOJ */
 
 #endif /* INCLUDE_MQCONSUMER_H_ */
-

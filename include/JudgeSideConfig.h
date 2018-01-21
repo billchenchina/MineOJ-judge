@@ -21,7 +21,6 @@ namespace MineOJ {
 
 class JudgeSideConfig : public Config{
 public:
-    JudgeSideConfig();
     JudgeSideConfig(const Json::Value &value);
     virtual ~JudgeSideConfig();
     RabbitmqConfig rabbitmq_config;

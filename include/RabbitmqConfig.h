@@ -14,7 +14,6 @@
 
 class RabbitmqConfig: public MineOJ::Config {
 public:
-    RabbitmqConfig();
     RabbitmqConfig(const Json::Value &value);
     virtual ~RabbitmqConfig();
     std::string ip;
@@ -24,6 +23,7 @@ public:
     std::string vhost;
     std::string exchange_name;
     std::string queue_name;
+    std::string signal_queue_name;
 };
 
 #endif /* INCLUDE_RABBITMQCONFIG_H_ */
