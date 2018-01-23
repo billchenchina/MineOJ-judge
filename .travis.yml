@@ -3,7 +3,7 @@ language: cpp
 compiler:
   - gcc
 before_script:
-  - cd ~ && wget https://github.com/CopernicaMarketingSoftware/AMQP-CPP/archive/v2.8.0.zip && unzip v2.8.0.zip && cd v2.8.0 && make && sudo make install
+  - cd ~ && wget https://github.com/CopernicaMarketingSoftware/AMQP-CPP/archive/v2.8.0.zip && unzip v2.8.0.zip && ls -a && cd v2.8.0 && make && sudo make install
   - cd ~ && wget http://dist.schmorp.de/libev/libev-4.24.tar.gz && unzip libev-4.24.tar.gz && cd libev-4.24 && ./configure && make && make install
 script:
   - cd ./Release && ls -a
