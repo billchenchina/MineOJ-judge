@@ -6,6 +6,7 @@
 
 #include <json/json.h>
 
+
 MineOJ::JudgeData::JudgeData(const std::int32_t &judge_id, const std::int32_t &problem_id, const std::string &data_version,
         const std::uint64_t &memory_limit, const std::uint64_t &time_limit,
         const JudgeType &judge_type, const std::string &submit_code) :

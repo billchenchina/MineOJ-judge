@@ -18,8 +18,6 @@ namespace MineOJ {
 
 class MQConsumer {
 public:
-    MQConsumer();
-    MQConsumer(const std::string &);
     MQConsumer(const RabbitmqConfig &);
     virtual ~MQConsumer();
     AMQP::Address address;

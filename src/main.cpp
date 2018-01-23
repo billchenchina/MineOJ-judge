@@ -13,41 +13,45 @@
 
 int main(int argc,char **argv){
     std::ifstream config("default-config.json");
-    std::stringstream buffer;
-    buffer << config.rdbuf();
-    Json::CharReaderBuilder builder;
-    std::string errs;
-    Json::Value value;
-    Json::parseFromStream(builder, buffer, &value, &errs);
+    Json::Value config_value;
+    {
 
-    MineOJ::JudgeSideConfig server_config(value);
+        std::stringstream buffer;
+        buffer << config.rdbuf();
+        Json::CharReaderBuilder builder;
+        std::string errs;
+
+        Json::parseFromStream(builder, buffer, &config_value, &errs);
+    }
+
+    MineOJ::JudgeSideConfig server_config(config_value);
     Json::StreamWriterBuilder write_builder;
     Json::CharReaderBuilder read_builder;
     for(;;)
     {
         MineOJ::MQTestDataConsumer consumer(server_config.rabbitmq_config);
-        auto judge_data_str = consumer.exec();
+        auto judge_data_str = consumer.exec(server_config.rabbitmq_config);
         MineOJ::JudgeData judge_data;
+        Json::Value judge_json_value;
         try
         {
-            judge_data.parse_from_json(Json::Value(judge_data_str));
+            // init json builder
+            Json::CharReaderBuilder builder;
+            builder["collectComments"] = false;
+            std::string errs;
+            std::stringstream ss(judge_data_str);
+            // parse
+            parseFromStream(builder, ss, &judge_json_value, &errs);
+            judge_data.parse_from_json(judge_json_value);
         }
         catch(const Json::LogicError &e)
         {
             std::cerr << "judge_data unvaliable!" << std::endl;
             std::cerr << "Please check!" << std::endl;
+            std::cerr << judge_data_str << std::endl;
             continue;
         }
 
-        /*
-         * @TODO How to check the data version?
-         *       1. Save a data version's SHA3 code to a file for every problem
-         *       2. Use a MYSQL DataBase.
-        if(judge_data.data_version)
-        {
-
-        }
-        */
 
     }
 

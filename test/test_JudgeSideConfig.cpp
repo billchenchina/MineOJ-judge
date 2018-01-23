@@ -16,7 +16,7 @@ TEST(test_JudgeSideConfig, ReadAndParse) {
     json["rabbitmq"]["port"] = 5672;
     json["rabbitmq"]["vhost"] = "/";
     json["rabbitmq"]["exchange_name"] = "exchange";
-    json["rabbitmq"]["queue_name"] = "queue";
+    json["rabbitmq"]["data_queue_name"] = "queue";
     const MineOJ::JudgeSideConfig server_config(json);
     EXPECT_EQ(server_config.rabbitmq_config.ip,"127.0.0.1");
     EXPECT_EQ(server_config.rabbitmq_config.port,5672);
@@ -24,5 +24,5 @@ TEST(test_JudgeSideConfig, ReadAndParse) {
     EXPECT_EQ(server_config.rabbitmq_config.password,"guest");
     EXPECT_EQ(server_config.rabbitmq_config.vhost,"/");
     EXPECT_EQ(server_config.rabbitmq_config.exchange_name,"exchange");
-    EXPECT_EQ(server_config.rabbitmq_config.queue_name,"queue");
+    EXPECT_EQ(server_config.rabbitmq_config.data_queue_name,"queue");
 }

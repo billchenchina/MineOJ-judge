@@ -22,8 +22,9 @@ public:
     std::string password;
     std::string vhost;
     std::string exchange_name;
-    std::string queue_name;
+    std::string data_queue_name;
     std::string signal_queue_name;
+    std::string data_exchange_key;
 };
 
 #endif /* INCLUDE_RABBITMQCONFIG_H_ */

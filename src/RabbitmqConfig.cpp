@@ -17,6 +17,7 @@ RabbitmqConfig::RabbitmqConfig(const Json::Value &value) {
     password = value["password"].asString();
     vhost = value["vhost"].asString();
     exchange_name = value["exchange_name"].asString();
-    queue_name = value["queue_name"].asString();
+    data_queue_name = value["data_queue_name"].asString();
     signal_queue_name = value["signal_queue_name"].asString();
+    data_exchange_key = value["data_exchange_key"].asString();
 }

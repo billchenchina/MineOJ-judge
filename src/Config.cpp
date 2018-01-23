@@ -10,12 +10,9 @@
 namespace MineOJ {
 
 Config::Config() {
-    // TODO Auto-generated constructor stub
-
 }
 
 Config::~Config() {
-    // TODO Auto-generated destructor stub
 }
 
 } /* namespace MineOJ */

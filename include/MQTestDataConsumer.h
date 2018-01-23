@@ -14,10 +14,8 @@ namespace MineOJ {
 
 class MQTestDataConsumer: public MQConsumer {
 public:
-    MQTestDataConsumer();
-    MQTestDataConsumer(const std::string &);
     MQTestDataConsumer(const RabbitmqConfig &);
-    std::string exec();
+    std::string exec(const RabbitmqConfig &);
     virtual ~MQTestDataConsumer();
 private:
     MQConsumer::MyHandler *_handler;

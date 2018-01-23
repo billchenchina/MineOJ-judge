@@ -16,6 +16,7 @@
 
 #include "Config.h"
 #include "RabbitmqConfig.h"
+#include "JudgeConfig.h"
 
 namespace MineOJ {
 
@@ -24,6 +25,7 @@ public:
     JudgeSideConfig(const Json::Value &value);
     virtual ~JudgeSideConfig();
     RabbitmqConfig rabbitmq_config;
+    JudgeConfig judge_config;
     // void parse_from_json(const Json::Value&);
     // Json::Value to_json()const;
 
