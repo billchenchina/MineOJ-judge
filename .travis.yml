@@ -6,4 +6,4 @@ before_install:
   - wget https://github.com/CopernicaMarketingSoftware/AMQP-CPP/archive/v2.8.0.zip && unzip v2.8.0.zip && cd AMQP-CPP-2.8.0 && make && sudo make install && cd ..
   - wget http://dist.schmorp.de/libev/libev-4.24.tar.gz && tar -zxvf libev-4.24.tar.gz && cd libev-4.24 && ./configure && make && sudo make install && cd ..
 install:
-  - cd Release && make all
+  - cd Debug && make all
