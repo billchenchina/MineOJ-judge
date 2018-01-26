@@ -22,7 +22,7 @@ public:
     std::string program_name;
     std::string in;
     std::string out;
-    std::vector
+    std::vector<JudgePoint> judge_points;
 };
 
 } /* namespace MineOJ */

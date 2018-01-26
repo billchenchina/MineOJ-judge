@@ -9,12 +9,12 @@
         "exchange_name" : "exchange1",
         "data_queue_name" : "queue1",
         "signal_queue_name" : "queue1",
-        "data_exchange_key" : "key",
+        "data_exchange_key" : "key"
     },
     "settings" : 
     {
-        "data_dir":"data",
-        "work_dir":"",
+        "data path":"data",
+        "work path":"work"
     }
 }
 

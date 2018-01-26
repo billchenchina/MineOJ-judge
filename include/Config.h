@@ -12,13 +12,10 @@
 
 namespace MineOJ {
 
-
 class Config {
 public:
     Config();
     virtual ~Config();
-    // virtual Json::Value to_json()=0;
-    // virtual void parse_from_json(const Json::Value&)=0;
 };
 
 } /* namespace MineOJ */

@@ -10,7 +10,7 @@
 namespace MineOJ {
 
 JudgeRunStep::JudgeRunStep() {
-    // TODO Auto-generated constructor stub
+    // TODO init JudgeRunStep::JudgeRunStep()
 
 }
 

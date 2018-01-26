@@ -16,7 +16,7 @@ MQPublisher::MQPublisher(const std::string &url, const std::string &message) :_a
 MQPublisher::MQPublisher(const RabbitmqConfig &config,const std::string &message) :_message(message), _handler(NULL) ,_address(AMQP::Address(config.ip,config.port,AMQP::Login(config.username,config.password),config.vhost)) {}
 
 MQPublisher::~MQPublisher() {}
-
+/*
 void MQPublisher::exec() {
     auto *loop = EV_DEFAULT;
     _handler = new MyHandler(loop);
@@ -27,5 +27,6 @@ void MQPublisher::exec() {
     connection.close();
     ev_run(loop);
 }
+*/
 
 } /* namespace MineOJ */

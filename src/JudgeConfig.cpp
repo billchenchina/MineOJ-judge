@@ -9,7 +9,7 @@
 
 namespace MineOJ {
 
-JudgeConfig::JudgeConfig(const Json::Value &value):work_dir(value["work_dir"].asString()),data_dir(value["data_dir"].asString()) {}
+JudgeConfig::JudgeConfig(const Json::Value &value):work_path(value["work path"].asString()),data_path(value["data path"].asString()) {}
 
 JudgeConfig::~JudgeConfig() {}
 

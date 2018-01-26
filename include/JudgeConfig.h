@@ -19,8 +19,8 @@ class JudgeConfig: public Config {
 public:
     JudgeConfig(const Json::Value &value);
     virtual ~JudgeConfig();
-    std::string data_dir;
-    std::string work_dir;
+    std::string data_path;
+    std::string work_path;
 
 };
 
