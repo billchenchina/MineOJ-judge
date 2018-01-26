@@ -5,8 +5,8 @@
  *      Author: billchenchina
  */
 
-#ifndef BEAN_JUDGEPOINT_H_
-#define BEAN_JUDGEPOINT_H_
+#ifndef INCLUDE_BEAN_JUDGEPOINT_H_
+#define INCLUDE_BEAN_JUDGEPOINT_H_
 
 #include <cstdint>
 
@@ -24,8 +24,6 @@ public:
     std::uint32_t score;
     JudgeStatus judge_status;
     std::string info;
-    std::string in_data;
-    std::string ans_data;
     JudgePoint() = default;
     JudgePoint(std::uint64_t time, std::uint64_t memory, std::uint32_t score,
             JudgeStatus judge_status, const std::string &info);
@@ -35,4 +33,4 @@ public:
 };
 }
 
-#endif /* BEAN_JUDGEPOINT_H_ */
+#endif /* INCLUDE_BEAN_JUDGEPOINT_H_ */

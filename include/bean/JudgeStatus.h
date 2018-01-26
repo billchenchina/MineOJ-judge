@@ -1,5 +1,5 @@
-#ifndef BEAN_JUDGESTATUS_H_
-#define BEAN_JUDGESTATUS_H_
+#ifndef INCLUDE_BEAN_JUDGESTATUS_H_
+#define INCLUDE_BEAN_JUDGESTATUS_H_
 
 #include <cstdint>
 
@@ -19,4 +19,4 @@ enum class JudgeStatus
 };
 }
 
-#endif /* BEAN_JUDGESTATUS_H_ */
+#endif /* INCLUDE_BEAN_JUDGESTATUS_H_ */

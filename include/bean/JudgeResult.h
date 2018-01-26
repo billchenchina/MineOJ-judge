@@ -1,5 +1,5 @@
-#ifndef BEAN_JUDGERESULT_H_
-#define BEAN_JUDGERESULT_H_
+#ifndef INCLUDE_BEAN_JUDGERESULT_H_
+#define INCLUDE_BEAN_JUDGERESULT_H_
 
 #include <cstdint>
 
@@ -35,4 +35,4 @@ public:
 };
 }
 
-#endif /* BEAN_JUDGERESULT_H_ */
+#endif /* INCLUDE_BEAN_JUDGERESULT_H_ */

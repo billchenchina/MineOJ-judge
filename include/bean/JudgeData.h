@@ -1,5 +1,5 @@
-#ifndef BEAN_JUDGEDATA_H_
-#define BEAN_JUDGEDATA_H_
+#ifndef INCLUDE_BEAN_JUDGEDATA_H_
+#define INCLUDE_BEAN_JUDGEDATA_H_
 
 #include <cstdint>
 #include <string>
@@ -34,4 +34,4 @@ public:
 
 }
 
-#endif // BEAN_JUDGEDATA_H_
+#endif // INCLUDE_BEAN_JUDGEDATA_H_

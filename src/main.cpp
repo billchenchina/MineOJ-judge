@@ -14,15 +14,13 @@
 int main(int argc,char **argv){
     std::ifstream config("default-config.json");
     Json::Value config_value;
-    {
+    Json::CharReaderBuilder builder;
+    std::string json_parse_errs;
 
-        std::stringstream buffer;
-        buffer << config.rdbuf();
-        Json::CharReaderBuilder builder;
-        std::string errs;
-
-        Json::parseFromStream(builder, buffer, &config_value, &errs);
-    }
+    std::stringstream json_parse_ss;
+    json_parse_ss << config.rdbuf();
+    Json::parseFromStream(builder, json_parse_ss, &config_value, &json_parse_errs);
+    json_parse_ss.clear();
 
     MineOJ::JudgeSideConfig server_config(config_value);
     Json::StreamWriterBuilder write_builder;
@@ -35,14 +33,10 @@ int main(int argc,char **argv){
         Json::Value judge_json_value;
         try
         {
-            // init json builder
-            Json::CharReaderBuilder builder;
-            builder["collectComments"] = false;
-            std::string errs;
-            std::stringstream ss(judge_data_str);
-            // parse
-            parseFromStream(builder, ss, &judge_json_value, &errs);
+            json_parse_ss << judge_data_str;
+            parseFromStream(builder, json_parse_ss, &judge_json_value, &json_parse_errs);
             judge_data.parse_from_json(judge_json_value);
+            json_parse_ss.clear();
         }
         catch(const Json::LogicError &e)
         {

@@ -1,5 +1,5 @@
-#ifndef BEAN_JUDGETYPE_H_
-#define BEAN_JUDGETYPE_H_
+#ifndef INCLUDE_BEAN_JUDGETYPE_H_
+#define INCLUDE_BEAN_JUDGETYPE_H_
 
 #include <cstdint>
 
@@ -11,4 +11,4 @@ enum class JudgeType
 };
 }
 
-#endif // BEAN_JUDGETYPE_H_
+#endif // INCLUDE_BEAN_JUDGETYPE_H_

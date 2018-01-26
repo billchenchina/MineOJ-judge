@@ -5,3 +5,4 @@
 *.d
 /Debug/*
 /Release/*
+/Debug/
