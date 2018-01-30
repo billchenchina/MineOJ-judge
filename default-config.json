@@ -13,8 +13,9 @@
     },
     "settings" : 
     {
-        "data path":"data",
-        "work path":"work"
+        "web host": "",
+        "data path": "data",
+        "work path": "work"
     }
 }
 

@@ -13,11 +13,16 @@
 namespace MineOJ {
 
 class Config {
+protected:
+    Config()=delete;
 public:
-    Config();
-    virtual ~Config();
+    virtual ~Config(){}
 };
 
 } /* namespace MineOJ */
 
 #endif /* INCLUDE_CONFIG_H_ */
+
+
+
+

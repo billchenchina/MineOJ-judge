@@ -84,21 +84,28 @@ int main(int argc,char **argv){
             }
 
         }
+        bool data_out_of_date = false;
         if(!fs::exists(problem_path/"problem.json"))
         {
-            std::ofstream problem_json_out((problem_path/"problem.json").c_str());
-            problem_json_out << "{}";
-            problem_json_out.close();
+            data_out_of_date = true;
         }
-        std::ifstream existed_problem_json((problem_path/"problem.json").c_str());
-        Json::Value existed_problem_value;
-        json_parse_ss << existed_problem_json.rdbuf();
-        Json::parseFromStream(read_builder, json_parse_ss, &existed_problem_value, &json_parse_errs);
-        json_parse_ss.clear();
-        if((!existed_problem_value.isMember("data_version")) || existed_problem_value["data_version"] != judge_data.data_version)
+        else
         {
-            // @TODO Get Data from Web Server
+            std::ifstream existed_problem_json((problem_path/"problem.json").c_str());
+            Json::Value existed_problem_value;
+            json_parse_ss << existed_problem_json.rdbuf();
+            Json::parseFromStream(read_builder, json_parse_ss, &existed_problem_value, &json_parse_errs);
+            json_parse_ss.clear();
+            if((!existed_problem_value.isMember("data_version")) || existed_problem_value["data_version"] != judge_data.data_version)
+            {
+                data_out_of_date = true;
+            }
         }
+        if(data_out_of_date)
+        {
+
+        }
+
         // @TODO Judge
 
 
