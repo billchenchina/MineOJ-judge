@@ -20,7 +20,7 @@
 
 namespace MineOJ {
 
-class JudgeSideConfig : public Config{
+class JudgeSideConfig{
 public:
     JudgeSideConfig(const Json::Value &value);
     virtual ~JudgeSideConfig();

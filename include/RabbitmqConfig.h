@@ -12,7 +12,7 @@
 
 #include <Config.h>
 
-class RabbitmqConfig: public MineOJ::Config {
+class RabbitmqConfig {
 public:
     RabbitmqConfig(const Json::Value &value);
     virtual ~RabbitmqConfig();

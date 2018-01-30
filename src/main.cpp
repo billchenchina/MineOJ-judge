@@ -5,16 +5,19 @@
 #include <ctime>
 #include <string>
 #include <sstream>
+#include <thread>
 #include <experimental/filesystem>
 #include <json/json.h>
 
 #include "JudgeSideConfig.h"
-#include "MQTestDataConsumer.h"
+#include "LibEvHandler.h"
 #include "bean/JudgeData.h"
+
 namespace fs = std::experimental::filesystem;
 
+void judge(const MineOJ::JudgeSideConfig &);
 
-int main(int argc,char **argv){
+int main(int argc, char **argv) {
 
     // Json Read and Write
     std::string json_parse_errs;
@@ -27,89 +30,77 @@ int main(int argc,char **argv){
     std::ifstream config("default-config.json");
     Json::Value config_value;
     json_parse_ss << config.rdbuf();
-    Json::parseFromStream(read_builder, json_parse_ss, &config_value, &json_parse_errs);
+    Json::parseFromStream(read_builder,
+                          json_parse_ss,
+                          &config_value,
+                          &json_parse_errs);
     json_parse_ss.clear();
     MineOJ::JudgeSideConfig server_config(config_value);
 
     // Validate data_dir and work_dir
     fs::path data_path(server_config.judge_config.data_path);
-    if(!fs::exists(data_path))
-    {
-        std::cerr << "Data path does not exist!" << std::endl
-                  << "Please check!" << std::endl;
+    if (!fs::exists(data_path)) {
+        std::cerr << "Data path does not exist!" << std::endl;
+        std::cerr << "Please check!" << std::endl;
         return 1;
     }
+
     fs::path work_path(server_config.judge_config.work_path);
-    if(!fs::exists(work_path))
-    {
-        std::cerr << "Work path does not exist!" << std::endl
-                  << "Please check!" << std::endl;
+    if (!fs::exists(work_path)) {
+        std::cerr << "Work path does not exist!" << std::endl;
+        std::cerr << "Please check!" << std::endl;
         return 1;
     }
+    std::shared_ptr<std::thread> judge_thread(new std::thread(judge,server_config));
 
-    for(;;)
-    {
-        // Run a MQTestDataConsumer
-        MineOJ::MQTestDataConsumer consumer(server_config.rabbitmq_config);
-        auto judge_data_str = consumer.exec(server_config.rabbitmq_config);
+    AMQP::Address address = AMQP::Address(server_config.rabbitmq_config.ip,
+                                          server_config.rabbitmq_config.port,
+                                          AMQP::Login(server_config.rabbitmq_config.username,
+                                                      server_config.rabbitmq_config.password),
+                                          server_config.rabbitmq_config.vhost);
 
-        // Parse Json::Value
-        MineOJ::JudgeData judge_data;
-        Json::Value judge_json_value;
-        try
+    auto *loop = ev_default_loop(0);
+    auto handler = new AMQP::LibEvHandler(loop);
+    AMQP::TcpConnection connection(handler, address);
+    AMQP::TcpChannel channel(&connection);
+    std::string s;
+    channel.consume(server_config.rabbitmq_config.signal_queue_name, AMQP::noack)
+            .onMessage([&judge_thread,&channel,&connection,&s,&server_config]
+                       (const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
+        s=std::string(message.body(),message.bodySize());
+        if(s=="start")
         {
-            json_parse_ss << judge_data_str;
-            parseFromStream(read_builder, json_parse_ss, &judge_json_value, &json_parse_errs);
-            judge_data.parse_from_json(judge_json_value);
-            json_parse_ss.clear();
-        }
-        catch(const Json::LogicError &e)
-        {
-            std::cerr << "judge_data unvaliable!" << std::endl;
-            std::cerr << "Please check!" << std::endl;
-            std::cerr << judge_data_str << std::endl;
-            continue;
-        }
-        fs::path problem_path = data_path / std::to_string(judge_data.problem_id);
-        if(!fs::exists(problem_path))
-        {
-            try
+            if(judge_thread.use_count() == 0)
             {
-                fs::create_directory(problem_path);
+                judge_thread.reset(new std::thread(judge,server_config));
+                std::cout << "Judge Thread Started!" << std::endl;
             }
-            catch(const fs::filesystem_error &e)
+            else
             {
-                std::cerr << "Failed to create path in " << problem_path.c_str() << std::endl;
-                return 1;
-            }
-
-        }
-        bool data_out_of_date = false;
-        if(!fs::exists(problem_path/"problem.json"))
-        {
-            data_out_of_date = true;
-        }
-        else
-        {
-            std::ifstream existed_problem_json((problem_path/"problem.json").c_str());
-            Json::Value existed_problem_value;
-            json_parse_ss << existed_problem_json.rdbuf();
-            Json::parseFromStream(read_builder, json_parse_ss, &existed_problem_value, &json_parse_errs);
-            json_parse_ss.clear();
-            if((!existed_problem_value.isMember("data_version")) || existed_problem_value["data_version"] != judge_data.data_version)
-            {
-                data_out_of_date = true;
+                std::cerr << "Judge Thread Already Started!" << std::endl;
             }
         }
-        if(data_out_of_date)
+        else if(s=="stop")
         {
-
+            try{
+                judge_thread.reset();
+            }catch(const std::exception &e)
+            {
+                std::cout << e.what()<< std::endl;
+            }
         }
-
-        // @TODO Judge
-
-
-    }
+    });
+    ev_run(loop);
 
     return 0;
+}
+
+void judge(const MineOJ::JudgeSideConfig &server_config)
+{
+    while(1){
+        std::cout<<"In judge thread "<<std::this_thread::get_id()<<std::endl;
+        using namespace std::chrono_literals;
+        std::this_thread::sleep_for(3s);
+
+    }
 }

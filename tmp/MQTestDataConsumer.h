@@ -9,6 +9,7 @@
 #define INCLUDE_MQTESTDATACONSUMER_H_
 
 #include <MQConsumer.h>
+#include <LibEvHandler.h>
 
 namespace MineOJ {
 
@@ -18,7 +19,7 @@ public:
     std::string exec(const RabbitmqConfig &);
     virtual ~MQTestDataConsumer();
 private:
-    MQConsumer::MyHandler *_handler;
+    MineOJ::LibEvHandler *_handler;
 };
 
 } /* namespace MineOJ */

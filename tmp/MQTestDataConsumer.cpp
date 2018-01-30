@@ -11,7 +11,7 @@ namespace MineOJ {
 MQTestDataConsumer::MQTestDataConsumer(const RabbitmqConfig &config) :MQConsumer(config) {}
 std::string MQTestDataConsumer::exec(const RabbitmqConfig &config) {
     auto *loop = EV_DEFAULT;
-    _handler = new MyHandler(loop);
+    _handler = new LibEvHandler(loop);
     AMQP::TcpConnection connection(_handler, address);
     AMQP::TcpChannel channel(&connection);
     std::string s;

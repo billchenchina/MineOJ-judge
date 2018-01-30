@@ -9,6 +9,7 @@
 #define INCLUDE_MQSIGNALCONSUMER_H_
 
 #include <MQConsumer.h>
+#include "LibEvHandler.h"
 
 namespace MineOJ {
 
@@ -18,7 +19,7 @@ public:
     virtual ~MQSignalConsumer();
     std::string exec();
 private:
-    MQConsumer::MyHandler *_handler;
+    MineOJ::LibEvHandler *_handler;
 };
 
 } /* namespace MineOJ */

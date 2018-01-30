@@ -15,8 +15,8 @@ MQSignalConsumer::~MQSignalConsumer() {}
 
 std::string MQSignalConsumer::exec() {
     auto *loop = EV_DEFAULT;
-    _handler = new MyHandler(loop);
-    AMQP::TcpConnection connection(_handler, address);
+    auto handler = new AMQP::LibEvHandler(loop);
+    AMQP::TcpConnection connection(handler, address);
     AMQP::TcpChannel channel(&connection);
     std::string s;
     // @TODO: make the message received by specific judge
