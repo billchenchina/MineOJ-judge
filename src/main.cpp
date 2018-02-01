@@ -1,4 +1,8 @@
 //Before the project complete,main.cpp will be exclude from all the build.
+
+#ifndef __x86_64__
+#error This Program can only run on 64 bit computer, sorry!
+#endif
 #include <fstream>
 #include <iostream>
 #include <iomanip>
