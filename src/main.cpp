@@ -6,6 +6,8 @@
 #include <string>
 #include <sstream>
 #include <thread>
+#include <functional>
+
 #include <experimental/filesystem>
 #include <json/json.h>
 
@@ -15,7 +17,7 @@
 
 namespace fs = std::experimental::filesystem;
 
-void judge(const MineOJ::JudgeSideConfig &);
+void judge(const MineOJ::JudgeSideConfig &,const bool &);
 
 int main(int argc, char **argv) {
 
@@ -51,8 +53,9 @@ int main(int argc, char **argv) {
         std::cerr << "Please check!" << std::endl;
         return 1;
     }
-    std::shared_ptr<std::thread> judge_thread(new std::thread(judge,server_config));
-
+    bool judge_status = 1;
+    std::function<void()>bound_judge = std::bind(judge,std::cref(server_config),std::cref(judge_status));
+    std::shared_ptr<std::thread> judge_thread(new std::thread(bound_judge));
     AMQP::Address address = AMQP::Address(server_config.rabbitmq_config.ip,
                                           server_config.rabbitmq_config.port,
                                           AMQP::Login(server_config.rabbitmq_config.username,
@@ -65,28 +68,24 @@ int main(int argc, char **argv) {
     AMQP::TcpChannel channel(&connection);
     std::string s;
     channel.consume(server_config.rabbitmq_config.signal_queue_name, AMQP::noack)
-            .onMessage([&judge_thread,&channel,&connection,&s,&server_config]
+            .onMessage([&bound_judge,&judge_status,&judge_thread,&channel,&connection,&s,&server_config]
                        (const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
         s=std::string(message.body(),message.bodySize());
         if(s=="start")
         {
-            if(judge_thread.use_count() == 0)
+            if(!judge_status)
             {
-                judge_thread.reset(new std::thread(judge,server_config));
-                std::cout << "Judge Thread Started!" << std::endl;
+                judge_status = 1;
+                judge_thread.reset(new std::thread(bound_judge));
             }
-            else
-            {
-                std::cerr << "Judge Thread Already Started!" << std::endl;
-            }
+
         }
         else if(s=="stop")
         {
-            try{
-                judge_thread.reset();
-            }catch(const std::exception &e)
+            judge_status = 0;
+            if(judge_thread->joinable())
             {
-                std::cout << e.what()<< std::endl;
+                judge_thread->join();
             }
         }
     });
@@ -95,12 +94,17 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-void judge(const MineOJ::JudgeSideConfig &server_config)
+// @TODO
+void judge(const MineOJ::JudgeSideConfig &server_config,const bool&judge_status)
 {
     while(1){
+        if(judge_status == 0)
+        {
+            std::cout <<"stopped"<<std::endl;
+            return;
+        }
         std::cout<<"In judge thread "<<std::this_thread::get_id()<<std::endl;
         using namespace std::chrono_literals;
         std::this_thread::sleep_for(3s);
-
     }
 }
