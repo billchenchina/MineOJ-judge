@@ -91,6 +91,17 @@ int main(int argc, char **argv) {
             {
                 judge_thread->join();
             }
+        } else if(s=="query")
+        {
+            if(judge_status)
+            {
+                // @TODO Tell the server
+                std::cout << "running" << std::endl;
+            }
+            else
+            {
+                std::cout << "stopped" << std::endl;
+            }
         }
     });
     ev_run(loop);
@@ -98,17 +109,88 @@ int main(int argc, char **argv) {
     return 0;
 }
 
+
+
 // @TODO
 void judge(const MineOJ::JudgeSideConfig &server_config,const bool&judge_status)
 {
-    while(1){
+
+    AMQP::Address address = AMQP::Address(server_config.rabbitmq_config.ip,
+                                          server_config.rabbitmq_config.port,
+                                          AMQP::Login(server_config.rabbitmq_config.username,
+                                                      server_config.rabbitmq_config.password),
+                                          server_config.rabbitmq_config.vhost);
+
+    auto *loop = ev_loop_new(0);
+    auto handler = new AMQP::LibEvHandler(loop);
+    AMQP::TcpConnection connection(handler, address);
+    AMQP::TcpChannel channel(&connection);
+
+    channel.consume(server_config.rabbitmq_config.data_queue_name, AMQP::noack)
+            .onMessage([&judge_status,&connection,&server_config]
+                       (const AMQP::Message &message, uint64_t deliveryTag, bool redelivered) {
+        std::string s(message.body(),message.bodySize());
+        std::cout << s << std::endl;
+        Json::Value json;
+        {
+            std::string json_parse_errs;
+            Json::StreamWriterBuilder write_builder;
+            Json::CharReaderBuilder read_builder;
+            std::stringstream json_parse_ss;
+            json_parse_ss << s;
+            Json::parseFromStream(read_builder,
+                                  json_parse_ss,
+                                  &json,
+                                  &json_parse_errs);
+        }
+        std::cout << json << std::endl;
+        MineOJ::JudgeData data(json);
+
+        std::cout << "Judging #" << data.judge_id << std::endl;
+        fs::path data_path(server_config.judge_config.data_path);
+        data_path/=std::to_string(data.problem_id);
+
+        // update data
+        {
+            bool need_update = false;
+            if(!fs::exists(data_path))
+            {
+                fs::create_directory(data_path);
+            }
+            if(!fs::exists(data_path/"version.txt"))
+            {
+                need_update = true;
+            }
+            else
+            {
+                std::ifstream checker((data_path/"version.txt").string());
+                std::string now_version;
+                checker >> now_version;
+                checker.close();
+                if(now_version != data.data_version)
+                {
+                    need_update = true;
+                }
+            }
+            if(need_update)
+            {
+                // Download Data from remote server
+
+                // unzip
+            }
+        }
+
+
         if(judge_status == 0)
         {
+            connection.close();
             std::cout <<"stopped"<<std::endl;
             return;
         }
-        std::cout<<"In judge thread "<<std::this_thread::get_id()<<std::endl;
-        using namespace std::chrono_literals;
-        std::this_thread::sleep_for(3s);
-    }
+    });
+    ev_run(loop);
+    std::cout << "Stopping!" << std::endl;
+    return;
+
 }
+

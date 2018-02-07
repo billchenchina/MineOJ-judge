@@ -21,6 +21,8 @@ public:
     virtual ~JudgeConfig();
     std::string data_path;
     std::string work_path;
+    std::string web_host;
+    std::string app_key;
 
 };
 

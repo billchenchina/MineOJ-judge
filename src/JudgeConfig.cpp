@@ -9,7 +9,11 @@
 
 namespace MineOJ {
 
-JudgeConfig::JudgeConfig(const Json::Value &value):work_path(value["work path"].asString()),data_path(value["data path"].asString()) {}
+JudgeConfig::JudgeConfig(const Json::Value &value):
+        work_path(value["work_path"].asString()),
+        data_path(value["data_path"].asString()),
+        web_host(value["web_host"].asString()),
+        app_key(value["app_key"].asString()) {}
 
 JudgeConfig::~JudgeConfig() {}
 

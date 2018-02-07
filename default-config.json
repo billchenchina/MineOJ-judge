@@ -8,14 +8,15 @@
         "vhost" : "/",
         "exchange_name" : "exchange1",
         "data_queue_name" : "queue1",
-        "signal_queue_name" : "queue1",
+        "signal_queue_name" : "queuesig",
         "data_exchange_key" : "key"
     },
     "settings" : 
     {
-        "web host": "",
-        "data path": "data",
-        "work path": "work"
+        "web_host": "https://oj.bidgroup.bid/",
+        "data_path": "data",
+        "work_path": "work",
+        "app_key":"5j1znBVAsnSf5xQyNQyq"
     }
 }
 
