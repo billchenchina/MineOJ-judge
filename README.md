@@ -5,7 +5,7 @@
 - [AMQP-CPP](https://github.com/CopernicaMarketingSoftware/AMQP-CPP)
 - [libev](http://software.schmorp.de/pkg/libev.html)
 - [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
-
+- [libcurl](https://curl.haxx.se/libcurl)
 ## 安装依赖
 
 ### AMQP-CPP
@@ -28,3 +28,9 @@ cd libev-4.24
 ### jsoncpp
 
 无需安装。
+
+### libcurl
+
+```sh
+apt update && apt install libcurl4-openssl-dev
+```
